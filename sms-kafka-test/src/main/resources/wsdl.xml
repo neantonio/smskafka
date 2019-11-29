@@ -1,0 +1,59 @@
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mg="http://schemas.alfastrah.ru/interplat4/ws-message-gateway-1.0" xmlns="http://schemas.alfastrah.ru/interplat4/ws-message-gateway-1.0" name="MessageGatewaySOAP" targetNamespace="http://schemas.alfastrah.ru/interplat4/ws-message-gateway-1.0">
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mg="http://schemas.alfastrah.ru/interplat4/ws-message-gateway-1.0" xmlns="http://schemas.alfastrah.ru/interplat4/ws-message-gateway-1.0">
+            <xsd:import namespace="http://schemas.alfastrah.ru/interplat4/ws-message-gateway-1.0" schemaLocation="http://interplat6.vesta.ru:8080/cxf/MessageGateway?xsd=MessageGateway.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="SendMessageRequest">
+        <wsdl:part element="SendMessage" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SendMessageResponse">
+        <wsdl:part element="SendMessageResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SendMessageAsyncRequest">
+        <wsdl:part element="SendMessageAsync" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SendMessagesAsyncRequest">
+        <wsdl:part element="SendMessagesAsync" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="MessageGateway">
+        <wsdl:operation name="SendMessageAsync">
+            <wsdl:input message="SendMessageAsyncRequest"> </wsdl:input>
+            <wsdl:output message="SendMessageResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SendMessagesAsync">
+            <wsdl:input message="SendMessagesAsyncRequest"> </wsdl:input>
+            <wsdl:output message="SendMessageResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SendMessage">
+            <wsdl:input message="SendMessageRequest"> </wsdl:input>
+            <wsdl:output message="SendMessageResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="MessageGatewayBinding" type="MessageGateway">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="SendMessage">
+            <soap:operation soapAction="http://schemas.alfastrah.ru/interplat4/ws-message-gateway-1.0/SendMessage"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="SendMessageAsync">
+            <soap:operation soapAction="http://schemas.alfastrah.ru/interplat4/ws-message-gateway-1.0/SendMessageAsync"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="SendMessagesAsync">
+            <soap:operation soapAction="http://schemas.alfastrah.ru/interplat4/ws-message-gateway-1.0/SendMessagesAsync"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="MessageGatewayService">
+        <wsdl:port binding="MessageGatewayBinding" name="MessageGatewayPort">
+            <soap:address location="http://interplat6.vesta.ru:8080/cxf/MessageGateway"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
